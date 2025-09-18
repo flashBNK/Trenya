@@ -1,0 +1,20 @@
+# Кеш питона
+*.pyc
+__pycache__/
+
+# База данных
+db.sqlite3
+
+# Статические файлы collectstatic
+/staticfieles
+
+# Картинки
+/media
+products/
+
+# Виртуальное окружение
+venv/
+.env
+
+# Логи
+*.log
