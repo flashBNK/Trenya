@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "main/base.html" %}
 
-</body>
-</html>
+{% block title %}Trenya - Построй тело мечты{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 80vh;">
+    <h1 class="display-1 fw-bold mb-4">Построй тело мечты</h1>
+    <p class="fs-3 mb-5 opacity-75">Trenya — твой путь к силе и здоровью</p>
+    <a href="{% url 'main:workout_list' %}" class="btn btn-gradient btn-lg px-5 py-3 rounded-pill text-uppercase fw-bold">
+        Вперёд
+    </a>
+</div>
+{% endblock %}

@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "main/base.html" %}
 
-</body>
-</html>
+{% block title %}Тренировки - Trenya{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-warning">Категории</h5>
+                <div class="d-grid gap-2">
+                    {% for g in goals %}
+                        <a href="{{ g.get_absolute_url }}" class="btn category-btn">
+                            <i class="bi bi-tag me-2"></i>{{ g.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        {% if not workouts %}
+            <div class="alert alert-info">Тренировки в этой категории отсутствуют</div>
+        {% else %}
+            <div class="row">
+                {% for workout in workouts %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 workout-card">
+                            <a href="{{ workout.get_absolute_url }}">
+                                <img src="{{ workout.image.url }}" class="card-img-top" alt="{{ workout.name }}" style="height: 200px; object-fit: cover;">
+                            </a>
+                            <div class="card-body text-center d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="{{ workout.get_absolute_url }}" class="text-decoration-none">{{ workout.name }}</a>
+                                </h5>
+                                <p class="card-text mt-auto">{{ workout.description }}</p>
+                                <a href="{{ workout.get_absolute_url }}" class="btn btn-gradient mt-2">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

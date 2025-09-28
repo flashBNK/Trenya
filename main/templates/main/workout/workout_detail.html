@@ -1,0 +1,79 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ workout.name }} - Trenya{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card workout-card">
+            <img src="{{ workout.image.url }}" class="card-img-top" alt="{{ workout.name }}" style="height: 300px; object-fit: cover;">
+            <div class="card-body">
+                <h3 class="card-title">{{ workout.name }}</h3>
+                <p class="card-text">{{ workout.description }}</p>
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <i class="bi bi-clock me-1"></i>Длительность: {{ workout.duration }} мин<br>
+                        <i class="bi bi-speedometer2 me-1"></i>Сложность: {{ workout.difficulty }}<br>
+                        <i class="bi bi-tag me-1"></i>Категория: {{ workout.goal.name }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-white">Упражнения</h2>
+            <span class="badge bg-warning text-dark fs-6">{{ workout.exercise.count }} упражнений</span>
+        </div>
+        
+        {% if not workout.exercise.all %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>Упражнения для этой тренировки пока не добавлены
+            </div>
+        {% else %}
+            <div class="row">
+                {% for exercise in workout.exercise.all %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 workout-card">
+                            <img src="{{ exercise.image.url }}" class="card-img-top" alt="{{ exercise.name }}" style="height: 200px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ exercise.name }}</h5>
+                                <p class="card-text">{{ exercise.description }}</p>
+                                <div class="mt-auto">
+                                    <div class="row text-center">
+                                        {% if exercise.sets %}
+                                            <div class="col-4">
+                                                <small class="text-muted">Подходы</small>
+                                                <div class="fw-bold">{{ exercise.sets }}</div>
+                                            </div>
+                                        {% endif %}
+                                        {% if exercise.reps %}
+                                            <div class="col-4">
+                                                <small class="text-muted">Повторы</small>
+                                                <div class="fw-bold">{{ exercise.reps }}</div>
+                                            </div>
+                                        {% endif %}
+                                        {% if exercise.duration %}
+                                            <div class="col-4">
+                                                <small class="text-muted">Время</small>
+                                                <div class="fw-bold">{{ exercise.duration }}с</div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'main:workout_list' %}" class="btn btn-outline-light">
+                <i class="bi bi-arrow-left me-2"></i>Вернуться к тренировкам
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
